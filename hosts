@@ -1,0 +1,14 @@
+# My Block list
+#=====================================
+# Hosts contributed by Bipul K Kuri
+0.0.0.0 masdk.googleapis.com
+0.0.0.0 pubads.g.doubleclick.net
+0.0.0.0 adclick.g.doubleclick.net
+0.0.0.0 aadssettings.google.com
+0.0.0.0 trc.taboola.com
+0.0.0.0 bs.serving-sys.com
+0.0.0.0 ads.stickyadstv.com
+0.0.0.0 securepubads.g.doubleclick.net
+0.0.0.0 googleads.g.doubleclick.net
+0.0.0.0 www8.smartadserver.com
+0.0.0.0 www.googleadservices.com
