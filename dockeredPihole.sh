@@ -150,9 +150,15 @@ function shell() {
   docker exec -it $CN bash
 }
 
+function picmd() {
+  checkDocker
+  echo "pihole command execution of $CN pihole $1"
+  docker exec "$CN" pihole "$1"
+}
+
 function changePassword() {
   checkDocker
-  docker exec $CN pihole -a -p "$2"
+  docker exec "$CN" pihole -a -p "$1"
 }
 
 function check() {
@@ -219,12 +225,14 @@ function usage() {
   echo "    ./dockeredPihole.sh restartdns                  Restart pi-hole dns."
   echo "    ./dockeredPihole.sh destroy                     Remove pi-hole docker image and container."
   echo "    ./dockeredPihole.sh changePassword <<PASS>>     Change pi-hole password."
+  echo "    ./dockeredPihole.sh picmd <<cmd>>               Execute pi-hole commands directly like pihole status,pihole -c ."
+ 
 
 }
 
 function main() {
 
-  echo "Processing $1"
+  echo "Processing $1 $2"
   if [ $# -lt 1 ]; then
     usage
     exit 1
@@ -254,10 +262,13 @@ function main() {
     destroy
     ;;
   changePassword)
-    changePassword
+    changePassword "$2"
     ;;
   restartdns)
     restartdns 
+    ;;
+  picmd)
+    picmd "$2"
     ;;
   *)
     echo "No command found"
@@ -271,7 +282,7 @@ clear
 attempt_counter=0
 max_attempts=5
 DOCKER_IMAGE="pihole/pihole"
-main $1
+main $1 $2
 
 
 
