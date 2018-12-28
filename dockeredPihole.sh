@@ -126,13 +126,13 @@ function destroy() {
 function version() {
   checkDocker
   echo "pihole version"
-  docker exec $CN pihole -v
+  docker exec "$CN" pihole -v
 }
 
 function upgrade() {
   checkDocker
   echo "pihole upgrade"
-  docker exec $CN pihole -up
+  docker exec "$CN" pihole -up
 }
 
 function password() {
@@ -150,6 +150,14 @@ function shell() {
   docker exec -it $CN bash
 }
 
+function updateAdlist(){
+   # download data from https://v.firebog.net/hosts/lists.php?type=tick to /etc/pihole/adlists.list
+   # pihole folder is always mapped because of docker volume
+   curl https://v.firebog.net/hosts/lists.php?type=tick >> pihole/adlists.list
+   echo "updating pihole with 3rd party lists"
+   picmd -g	
+
+}
 function picmd() {
   checkDocker
   echo "pihole command execution of $CN pihole $1"
@@ -211,6 +219,8 @@ function setup() {
   wait4url
   password
   pi_available
+  upgrade
+  updateAdlist
 }
 
 function usage() {
