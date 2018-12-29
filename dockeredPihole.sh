@@ -63,7 +63,7 @@ function ip() {
             echo 'other OS'
         ;;
     esac
-    echo "Host ip to be used $LOCAL_IP for setting up pihole docker container"
+    echo "host ip to be used $LOCAL_IP for setting up pihole docker container"
 }
 
 function scan() {
@@ -119,6 +119,7 @@ function clean() {
 }
 
 function destroy() {
+    pullLatest
     shutdown
     clean
 }
@@ -154,6 +155,7 @@ function updateAdlist(){
     # download data from https://v.firebog.net/hosts/lists.php?type=tick to /etc/pihole/adlists.list
     # pihole folder is always mapped because of docker volume
     curl https://v.firebog.net/hosts/lists.php?type=tick >> pihole/adlists.list
+    echo "https://tspprs.com/dl/cl1" >> pihole/adlists.list
     echo "updating pihole with 3rd party lists"
     picmd -g
     
