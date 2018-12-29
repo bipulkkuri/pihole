@@ -114,7 +114,7 @@ function start() {
 function clean() {
     
     echo "pihole cleaning"
-    docker-compose rm -f
+    #docker-compose rm -f
     docker rmi "$DOCKER_IMAGE"
 }
 
@@ -122,6 +122,7 @@ function destroy() {
     pullLatest
     shutdown
     clean
+    rm -rf pihole dnsmasq.d
 }
 
 function version() {
@@ -210,9 +211,6 @@ function wait4url() {
     done
 }
 
-function whitelist(){
-    picmd "-w raw.githubusercontent.com"
-}
 function setup() {
     scan
     ip
@@ -223,10 +221,9 @@ function setup() {
     version
     wait4url
     password
-    pi_available
     upgrade
     updateAdlist
-    whitelist
+    pi_available
 }
 
 function usage() {
