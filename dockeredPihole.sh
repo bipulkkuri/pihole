@@ -210,6 +210,9 @@ function wait4url() {
     done
 }
 
+function whitelist(){
+    picmd "-w raw.githubusercontent.com"
+}
 function setup() {
     scan
     ip
@@ -223,6 +226,7 @@ function setup() {
     pi_available
     upgrade
     updateAdlist
+    whitelist
 }
 
 function usage() {
