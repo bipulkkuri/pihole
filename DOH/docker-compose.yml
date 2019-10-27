@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  cloudflared:
+    container_name: cloudflared
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    networks:
+      pihole_net:
+        ipv4_address: 10.0.0.2
+
+  pihole:
+    image: pihole/pihole:latest
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+    environment:
+      - ServerIP=10.0.0.3
+      - DNS1='10.0.0.2#5053'
+      - DNS2=''
+      - IPv6=false
+      - TZ=America/NEW_YORK
+      - DNSMASQ_LISTENING=all
+      - WEBPASSWORD=admin
+    networks:
+      pihole_net:
+        ipv4_address: 10.0.0.3
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    cap_add:
+      - NET_ADMIN
+
+networks:
+  pihole_net:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.0.0.0/29
+
