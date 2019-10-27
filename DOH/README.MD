@@ -1,5 +1,5 @@
 
-# how to enable DNS over HTTP via Pihole on docker which cane be run in Docker supported platforms.(MAC/WINDOWS/CENTOS/RASPBERRY)
+# How to enable DNS over HTTP via Pihole on docker which cane be run in Docker supported platforms.(MAC/WINDOWS/CENTOS/RASPBERRY/...)
 
 ## Reference
 https://docs.pi-hole.net/guides/dns-over-https/
