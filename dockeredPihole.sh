@@ -43,7 +43,7 @@ function ip() {
         
         Darwin)
             echo 'Mac OS X'
-            export LOCAL_IP="$(ipconfig getifaddr en1)"
+            export LOCAL_IP="$(ipconfig getifaddr en0)"
         ;;
         
         Linux)
@@ -117,6 +117,11 @@ function clean() {
     #docker-compose rm -f
     docker rmi "$DOCKER_IMAGE"
 }
+
+function recreate() {
+    destroy
+    setup
+}	
 
 function destroy() {
     pullLatest
@@ -220,7 +225,6 @@ function setup() {
     start
     version
     wait4url
-    password
     upgrade
     updateAdlist
     pi_available
@@ -232,12 +236,12 @@ function usage() {
     echo "    ./dockeredPihole.sh setup                       Install a pi-hole in docker container."
     echo "    ./dockeredPihole.sh version                     Print pi-hole version."
     echo "    ./dockeredPihole.sh upgrade                     Do pi-hole upgrade."
-    echo "    ./dockeredPihole.sh password                    Print pi-hole password."
     echo "    ./dockeredPihole.sh shell                       Get pi-hole shell."
     echo "    ./dockeredPihole.sh ip                          Get host ip."
     echo "    ./dockeredPihole.sh restartdns                  Restart pi-hole dns."
     echo "    ./dockeredPihole.sh destroy                     Remove pi-hole docker image and container."
-    echo "    ./dockeredPihole.sh changePassword <<PASS>>     Change pi-hole password."
+    echo "    ./dockeredPihole.sh recreate                    Recreate pi-hole docker image and container."
+    echo "    ./dockeredPihole.sh password                    Print pi-hole password."
     echo "    ./dockeredPihole.sh picmd <<cmd>>               Execute pi-hole commands directly like pihole status,pihole -c ."
     
     
@@ -271,11 +275,11 @@ function main() {
         ip)
             ip
         ;;
+        recreate)
+	    recreate
+	;;    
         destroy)
             destroy
-        ;;
-        changePassword)
-            changePassword "$2"
         ;;
         restartdns)
             restartdns

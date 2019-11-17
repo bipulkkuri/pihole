@@ -16,7 +16,7 @@ services:
       ServerIP: "${LOCAL_IP}"
       # IPv6 Address if your network supports it
       #ServerIPv6: 
-      # WEBPASSWORD: "piholepass"
+      WEBPASSWORD: "piholepass"
     volumes:
        - "${DOCKER_CONFIGS}/pihole/:/etc/pihole/"
        - "${DOCKER_CONFIGS}/dnsmasq.d/:/etc/dnsmasq.d/"
