@@ -162,6 +162,7 @@ function updateAdlist(){
     # pihole folder is always mapped because of docker volume
     curl https://v.firebog.net/hosts/lists.php?type=tick >> pihole/adlists.list
     echo "https://tspprs.com/dl/cl1" >> pihole/adlists.list
+    cat blocklist.txt >> pihole/adlists.list
     echo "updating pihole with 3rd party lists"
     picmd -g
     
